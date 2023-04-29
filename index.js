@@ -44,7 +44,7 @@ Init()
 
 
 app.get('/', (req, res) => {
-    res.status(200).send({ "status": "OK" });
+    res.status(200).send({ status: "OK" });
 })
 
 
@@ -54,7 +54,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
             const db = client.db("ETFS");
             const id = uuidv4();
             await db.collection("Files").insertOne({ "id": id, "time": Date.now(), "time_expires": Date.now() + 30 * 60000, "location": req.file.filename, "extension": req.file.originalname.split(".").pop(), "original_name": req.file.originalname });
-            res.status(200).send({ "status": "OK", "id": id });
+            res.status(200).send({ status: "OK", id: id });
         } else {
             res.status(401).send({ error: "Invalid credentials" });
         }
