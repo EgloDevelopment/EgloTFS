@@ -11,7 +11,7 @@ The MONGODB_URI will be your connection string to the database, eg: mongodb://10
 and the KEY will be your authentication for uploading files, so set it to a password or something secure
 
 # How to upload files
-To upload send a POST request to upload like this:
+To upload send a POST request like this:
 
 http://localhost:3000/upload?key=somekey
 
