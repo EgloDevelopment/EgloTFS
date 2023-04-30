@@ -55,7 +55,7 @@ const downloadFile = (async (url, folder = ".") => {
     if (!fs.existsSync("./files")) await mkdir("./files");
     const destination = path.resolve("./temporary", folder);
     const fileStream = fs.createWriteStream(destination, { flags: 'wx' });
-    await finished(Readable.fromWeb(res.body).pipe(fileStream));
+    await finished(Readable.from(res.body).pipe(fileStream));
 });
 
 
