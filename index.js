@@ -8,6 +8,7 @@ const { mkdir, writeFile } = require("fs/promises");
 const { Readable } = require('stream');
 const { finished } = require('stream/promises');
 const path = require("path");
+const fetch = require("node-fetch");
 
 app.use(express.json());
 
@@ -95,8 +96,13 @@ app.post('/discord', async (req, res) => {
                     "./files/" + id
                 )
                 .then(() => {
-                    for (const val of data) {
-                        fs.unlinkSync(val);
+                    try {
+                        for (const val of data) {
+                            fs.unlinkSync(val);
+                        }
+                    } catch (e) {
+                        console.log(e)
+                        console.log("Failed to delete temporary file")
                     }
                 })
                 .catch((err) => {
