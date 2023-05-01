@@ -126,12 +126,6 @@ app.get("/download", async (req, res) => {
         const db = client.db("ETFS");
         const database_interaction = await db.collection("Files").findOne({ id: req.query.id });
         res.status(200).download(__dirname + "/files/" + database_interaction.location, database_interaction.original_name);
-        try {
-            fs.unlinkSync(__dirname + "/files/" + database_interaction.location);  
-        } catch (e) {
-            console.log(e)
-            console.log("Failed to delete file")
-        }
     } catch {
         res.status(500).send({ error: "Invalid parameters" });
     }
