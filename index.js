@@ -33,7 +33,11 @@ async function deleteOldFiles() {
     const db = client.db("ETFS");
     const database_interaction = await db.collection("Files").find({ time_expires: { $lte: Date.now() } }).toArray();
     for (const val of database_interaction) {
-        fs.unlinkSync(__dirname + "/files/" + val.location);
+        try {
+            fs.unlinkSync(__dirname + "/files/" + val.location);
+        } catch {
+            console.log("Tried deleting file, ran into error, most likely already deleted, ID: " + val.id)
+        }
         await db.collection("Files").deleteOne({ id: val.id });
         console.log("Deleted file with ID of: " + val.id);
     }
